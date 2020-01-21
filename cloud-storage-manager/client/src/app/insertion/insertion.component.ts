@@ -25,10 +25,10 @@ export class InsertionComponent implements OnInit {
     from_station_name: '',
     dpcapacity_end: null,
     dpcapacity_start: null,
-    latitude_end: '',
-    latitude_start: '',
-    longitude_end: '',
-    longitude_start: '',
+    latitude_end: null,
+    latitude_start: null,
+    longitude_end: null,
+    longitude_start: null,
     to_station_id: '',
     to_station_name: ''
   };
