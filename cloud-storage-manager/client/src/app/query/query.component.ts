@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {WebclientService} from "../service/webclient.service";
-import {BikeData} from "../model/BikeData";
-import {MatSnackBar} from "@angular/material";
+import {WebclientService} from '../service/webclient.service';
+import {BikeData} from '../model/BikeData';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-query',
@@ -9,9 +9,9 @@ import {MatSnackBar} from "@angular/material";
   styleUrls: ['./query.component.scss']
 })
 export class QueryComponent implements OnInit {
-  queryValue: string = "";
-  toValue: string = "";
-  fromValue: string = "";
+  queryValue = '';
+  toValue = '';
+  fromValue = '';
 
   displayedColumns: string[] = [
     'trip_id', 'year', 'month', 'week', 'day', 'hour',
@@ -19,6 +19,7 @@ export class QueryComponent implements OnInit {
     'events', 'from_station_name', 'to_station_name'
   ];
 
+  // todo: replace with empty array when real data is there
   dataSource: BikeData[] = [
     {
       trip_id: '123',
@@ -72,7 +73,7 @@ export class QueryComponent implements OnInit {
     }
   ];
 
-  constructor(private webclient: WebclientService, private _snackBar: MatSnackBar) {
+  constructor(private webclient: WebclientService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -84,7 +85,7 @@ export class QueryComponent implements OnInit {
         this.queryValue = '';
       },
       (error) => {
-        this._snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
+        this.snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
       });
   }
 
@@ -95,7 +96,7 @@ export class QueryComponent implements OnInit {
         this.toValue = '';
       },
       (error) => {
-        this._snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
+        this.snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
       }
     );
   }

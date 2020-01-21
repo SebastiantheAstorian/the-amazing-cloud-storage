@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {BikeData} from "../model/BikeData";
-import {WebclientService} from "../service/webclient.service";
-import {MatSnackBar} from "@angular/material";
+import {BikeData} from '../model/BikeData';
+import {WebclientService} from '../service/webclient.service';
+import {MatSnackBar} from '@angular/material';
 import * as Papa from 'papaparse';
-import {from} from "rxjs";
-import {finalize, flatMap} from "rxjs/operators";
+import {from} from 'rxjs';
+import {finalize, flatMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-insertion',
@@ -39,23 +39,23 @@ export class InsertionComponent implements OnInit {
     to_station_name: ''
   };
 
-  constructor(private webClient: WebclientService, private _snackBar: MatSnackBar) {
+  constructor(private webClient: WebclientService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    //copy initialize
+    // copy initialize
     this.initialvalue = {...this.value};
   }
 
   addValue() {
     this.webClient.insertValue(this.value).subscribe(
       response => {
-        this._snackBar.open('Insert successful. Key: ' + response, 'Close', {duration: 10000});
+        this.snackBar.open('Insert successful. Key: ' + response, 'Close', {duration: 10000});
         this.value = this.initialvalue;
       },
       error => {
         console.log('error occured on insert!');
-        this._snackBar.open('Could not insert key. Are you sure it does not exist yet?', 'Close');
+        this.snackBar.open('Could not insert key. Are you sure it does not exist yet?', 'Close');
       },
     );
   }
@@ -64,7 +64,7 @@ export class InsertionComponent implements OnInit {
     from(data)
       .pipe(
         finalize(() => {
-          this._snackBar.open('All values uploaded. Key is Trip Id', 'Close', {duration: 3000});
+          this.snackBar.open('All values uploaded. Key is Trip Id', 'Close', {duration: 3000});
 
         }),
         flatMap(value => {
@@ -72,11 +72,11 @@ export class InsertionComponent implements OnInit {
         }),
       )
       .subscribe(response => {
-          console.log('sent value', response)
+          console.log('sent value', response);
         },
         error => {
           console.log('error occured on insert!');
-          this._snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
+          this.snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
         }
       );
   }
@@ -85,16 +85,16 @@ export class InsertionComponent implements OnInit {
   changeListener(files: FileList) {
     console.log(files);
     if (files && files.length > 0) {
-      let file: File = files.item(0);
+      const file: File = files.item(0);
       Papa.parse(file, {
         header: true,
         skipEmptyLines: true,
-        complete: (result, file) => {
+        complete: (result, inputFile) => {
           console.log(result);
           this.addValues(result.data);
         },
-        delimiter: ";"
-      })
+        delimiter: ';'
+      });
 
     }
   }

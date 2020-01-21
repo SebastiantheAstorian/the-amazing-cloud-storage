@@ -63,10 +63,10 @@ task ngLint(type: Exec) {
   dependsOn npmInstall
   String osName = System.getProperty("os.name").toLowerCase()
   if (osName.contains("windows")) {
-    commandLine "npm.cmd", "run", "lint"
+    commandLine "npm.cmd", "run", "lint", "--fix=true"
   } else {
     executable 'npm'
-    args = ['run', 'lint']
+    args = ['run', 'lint', '--fix=true']
 
   }
 

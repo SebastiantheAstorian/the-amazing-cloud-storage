@@ -7,7 +7,7 @@ export interface BikeData {
   hour: number;
   usertype: string;
   gender: string;
-  starttime: string
+  starttime: string;
   stoptime: string;
   tripduration: number;
   temperature: number;
@@ -17,8 +17,8 @@ export interface BikeData {
   latitude_start: number;
   longitude_start: number;
   dpcapacity_start: number;
-  to_station_id:string;
-  to_station_name:string;
+  to_station_id: string;
+  to_station_name: string;
   latitude_end: number;
   longitude_end: number;
   dpcapacity_end: number;

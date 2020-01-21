@@ -10,13 +10,13 @@ import {
   MatInputModule, MatSnackBarModule, MatTableModule,
   MatTabsModule,
   MatToolbarModule
-} from "@angular/material";
+} from '@angular/material';
 import { InsertionComponent } from './insertion/insertion.component';
 import { QueryComponent } from './query/query.component';
 import { DeletionComponent } from './deletion/deletion.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {WebclientService} from "./service/webclient.service";
-import {HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {WebclientService} from './service/webclient.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [

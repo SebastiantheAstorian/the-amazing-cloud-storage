@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {WebclientService} from "../service/webclient.service";
-import {MatSnackBar} from "@angular/material";
+import {WebclientService} from '../service/webclient.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-deletion',
@@ -10,7 +10,7 @@ import {MatSnackBar} from "@angular/material";
 export class DeletionComponent implements OnInit {
   deleteValue: string;
 
-  constructor(private webclient: WebclientService, private _snackBar: MatSnackBar) {
+  constructor(private webclient: WebclientService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -20,15 +20,15 @@ export class DeletionComponent implements OnInit {
     this.webclient.deleteValue(this.deleteValue).subscribe(
       response => {
         if (response) {
-          this._snackBar.open("Deleted value with key: " + this.deleteValue, 'Close', {duration: 3000});
+          this.snackBar.open('Deleted value with key: ' + this.deleteValue, 'Close', {duration: 3000});
           this.deleteValue = '';
         } else {
-          this._snackBar.open("Could not find value with key: " + this.deleteValue, 'Close', {duration: 3000});
+          this.snackBar.open('Could not find value with key: ' + this.deleteValue, 'Close', {duration: 3000});
         }
       },
       error => {
-        this._snackBar.open('Error occured deleting value with key: ' + this.deleteValue, 'Close', {duration: 3000});
+        this.snackBar.open('Error occured deleting value with key: ' + this.deleteValue, 'Close', {duration: 3000});
       }
-    )
+    );
   }
 }
