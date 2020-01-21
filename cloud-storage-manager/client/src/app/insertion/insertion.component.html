@@ -1,3 +1,123 @@
-<p>
-  insertion works!
-</p>
+<mat-card class="border-card">
+  <h3>Insert new values from csv</h3>
+
+
+  <h3>Insert new value by Hand</h3>
+  <form class="insertion-form">
+    <mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-tile>
+
+      </mat-grid-tile>
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="key" matInput placeholder="trip_id (key)" [(ngModel)]="value.trip_id">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="year" matInput placeholder="year" [(ngModel)]="value.year">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="month" matInput placeholder="month" [(ngModel)]="value.month">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="week" matInput placeholder="week" [(ngModel)]="value.week">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="day" matInput placeholder="day" [(ngModel)]="value.day">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="hour" matInput placeholder="hour" [(ngModel)]="value.hour">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required name="usertype" matInput placeholder="usertype" [(ngModel)]="value.usertype">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required name="gender" matInput placeholder="gender" [(ngModel)]="value.gender">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required name="starttime" matInput #starttime
+               pattern="([0-9]{4})-(1[012]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9]) (?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)"
+               placeholder="starttime (YYYY-MM-DD hh:mm:ss)" [(ngModel)]="value.starttime">
+        <mat-error *ngIf="!starttime.checkValidity()">
+          Please input a date in format <strong>(YYYY-MM-DD hh:mm:ss)</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required name="stoptime" matInput #stoptime
+               pattern="([0-9]{4})-(1[012]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9]) (?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)"
+               placeholder="stoptime (YYYY-MM-DD hh:mm:ss)" [(ngModel)]="value.stoptime">
+        <mat-error *ngIf="!stoptime.checkValidity()">
+          Please input a date in format <strong>(YYYY-MM-DD hh:mm:ss)</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="tripduration" matInput placeholder="tripduration" [(ngModel)]="value.tripduration">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="temperature" matInput placeholder="temperature" [(ngModel)]="value.temperature">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required name="events" matInput placeholder="events" [(ngModel)]="value.events">
+      </mat-form-field>
+
+      <mat-grid-tile>
+
+      </mat-grid-tile>
+      <mat-form-field class="insertion-form-field">
+        <input required name="from_station_id" matInput placeholder="from_station_id" [(ngModel)]="value.from_station_id">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required name="from_station_name" matInput placeholder="from_station_name" [(ngModel)]="value.from_station_name">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="latitude_start" matInput placeholder="latitude_start"
+               [(ngModel)]="value.latitude_start">
+      </mat-form-field>
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="longitude_start" matInput placeholder="longitude_start"
+               [(ngModel)]="value.longitude_start">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="dpcapacity_start" matInput placeholder="dpcapacity_start"
+               [(ngModel)]="value.dpcapacity_start">
+      </mat-form-field>
+      <mat-form-field class="insertion-form-field">
+        <input required name="to_station_id" matInput placeholder="to_station_id" [(ngModel)]="value.to_station_id">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required name="to_station_name" matInput placeholder="to_station_name" [(ngModel)]="value.to_station_name">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="latitude_end" matInput placeholder="latitude_end" [(ngModel)]="value.latitude_end">
+      </mat-form-field>
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="longitude_end" matInput placeholder="longitude_end"
+               [(ngModel)]="value.longitude_end">
+      </mat-form-field>
+
+      <mat-form-field class="insertion-form-field">
+        <input required type="number" name="dpcapacity_end" matInput placeholder="dpcapacity_end"
+               [(ngModel)]="value.dpcapacity_end">
+      </mat-form-field>
+      <button mat-button (click)="addValue()">Add Value</button>
+    </mat-grid-list>
+
+
+  </form>
+
+</mat-card>
