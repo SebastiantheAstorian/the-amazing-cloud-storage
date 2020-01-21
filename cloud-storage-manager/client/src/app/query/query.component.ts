@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WebclientService} from "../service/webclient.service";
 import {BikeData} from "../model/BikeData";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-query',
@@ -71,7 +72,7 @@ export class QueryComponent implements OnInit {
     }
   ];
 
-  constructor(private webclient: WebclientService) {
+  constructor(private webclient: WebclientService, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -79,9 +80,12 @@ export class QueryComponent implements OnInit {
 
   querySingleValue() {
     this.webclient.querySingleValue(this.queryValue).subscribe(response => {
-      this.dataSource = [response];
-      this.queryValue = '';
-    });
+        this.dataSource = [response];
+        this.queryValue = '';
+      },
+      (error) => {
+        this._snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
+      });
   }
 
   queryRange() {
@@ -89,6 +93,9 @@ export class QueryComponent implements OnInit {
         this.dataSource = response;
         this.fromValue = '';
         this.toValue = '';
+      },
+      (error) => {
+        this._snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
       }
     );
   }

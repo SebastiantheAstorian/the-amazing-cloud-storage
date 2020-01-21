@@ -7,7 +7,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatFormFieldModule, MatGridListModule,
-  MatInputModule, MatTableModule,
+  MatInputModule, MatSnackBarModule, MatTableModule,
   MatTabsModule,
   MatToolbarModule
 } from "@angular/material";
@@ -38,7 +38,8 @@ import {HttpClientModule} from "@angular/common/http";
     HttpClientModule,
     MatGridListModule,
     MatTableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [WebclientService],
   bootstrap: [AppComponent]

@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BikeData} from "../model/BikeData";
+import {WebclientService} from "../service/webclient.service";
+import {MatSnackBar} from "@angular/material";
+import * as Papa from 'papaparse';
+import {from} from "rxjs";
+import {finalize, flatMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-insertion',
@@ -7,7 +12,8 @@ import {BikeData} from "../model/BikeData";
   styleUrls: ['./insertion.component.scss']
 })
 export class InsertionComponent implements OnInit {
-  value: BikeData=  {
+  initialvalue: BikeData;
+  value: BikeData = {
     trip_id: '',
     year: null,
     month: null,
@@ -33,14 +39,64 @@ export class InsertionComponent implements OnInit {
     to_station_name: ''
   };
 
-  constructor() { }
+  constructor(private webClient: WebclientService, private _snackBar: MatSnackBar) {
+  }
 
   ngOnInit() {
+    //copy initialize
+    this.initialvalue = {...this.value};
   }
 
   addValue() {
-    console.log(this.value);
+    this.webClient.insertValue(this.value).subscribe(
+      response => {
+        this._snackBar.open('Insert successful. Key: ' + response, 'Close', {duration: 10000});
+        this.value = this.initialvalue;
+      },
+      error => {
+        console.log('error occured on insert!');
+        this._snackBar.open('Could not insert key. Are you sure it does not exist yet?', 'Close');
+      },
+    );
   }
 
+  addValues(data: BikeData[]) {
+    from(data)
+      .pipe(
+        finalize(() => {
+          this._snackBar.open('All values uploaded. Key is Trip Id', 'Close', {duration: 3000});
+
+        }),
+        flatMap(value => {
+          return this.webClient.insertValue(value);
+        }),
+      )
+      .subscribe(response => {
+          console.log('sent value', response)
+        },
+        error => {
+          console.log('error occured on insert!');
+          this._snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
+        }
+      );
+  }
+
+
+  changeListener(files: FileList) {
+    console.log(files);
+    if (files && files.length > 0) {
+      let file: File = files.item(0);
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (result, file) => {
+          console.log(result);
+          this.addValues(result.data);
+        },
+        delimiter: ";"
+      })
+
+    }
+  }
 }
 
