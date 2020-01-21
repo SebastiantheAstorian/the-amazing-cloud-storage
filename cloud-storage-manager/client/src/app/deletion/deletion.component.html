@@ -1,3 +1,8 @@
-<p>
-  deletion works!
-</p>
+<mat-card class="border-card">
+  <form class="query-form">
+    <h3>Delete Values by Key</h3>
+    <mat-form-field class="delete-field">
+      <input type="number" name="keyInput" matInput placeholder="Key" [(ngModel)]="deleteValue">
+    </mat-form-field>
+    <button mat-button (click)="delete()">Delete Value</button>
+  </form>

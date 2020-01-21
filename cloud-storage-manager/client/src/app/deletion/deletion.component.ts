@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {WebclientService} from "../service/webclient.service";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-deletion',
@@ -6,10 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./deletion.component.scss']
 })
 export class DeletionComponent implements OnInit {
+  deleteValue: string;
 
-  constructor() { }
+  constructor(private webclient: WebclientService, private _snackBar: MatSnackBar) {
+  }
 
   ngOnInit() {
   }
 
+  delete() {
+    this.webclient.deleteValue(this.deleteValue).subscribe(
+      response => {
+        if (response) {
+          this._snackBar.open("Deleted value with key: " + this.deleteValue, 'Close', {duration: 3000});
+          this.deleteValue = '';
+        } else {
+          this._snackBar.open("Could not find value with key: " + this.deleteValue, 'Close', {duration: 3000});
+        }
+      },
+      error => {
+        this._snackBar.open('Error occured deleting value with key: ' + this.deleteValue, 'Close', {duration: 3000});
+      }
+    )
+  }
 }
