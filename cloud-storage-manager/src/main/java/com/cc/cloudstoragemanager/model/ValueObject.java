@@ -1,5 +1,7 @@
 package com.cc.cloudstoragemanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
 import java.time.Instant;
@@ -36,14 +38,17 @@ public class ValueObject {
     private double  dpcapacity_start; //this is a decimal in the input file (although conceptually it should be an integer...?)
 
     private int to_station_id;
-    private int to_station_name;
+    private String to_station_name;
     private double  latitude_end;
     private double  longitude_end;
     private double  dpcapacity_end;
+
+
 
     /**
      * Explicit getter for the field that is used as the key
      * @return ID of the trip
      */
+    @JsonIgnore
     public int getKey(){return trip_id;};
 }
