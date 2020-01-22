@@ -1,7 +1,9 @@
 package com.cc.cloudstoragemanager;
 
 import com.cc.cloudstoragemanager.model.ValueObject;
+import com.cc.cloudstoragemanager.nodes.NodeManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,18 +13,18 @@ import java.util.List;
 @RestController
 public class CloudStorageManagerService {
 
+    @Autowired
+    private NodeManager nodeManager;
 
 
     //add value
-    @GetMapping("/values")
+    @PostMapping("/values")
     public int addValue(@RequestBody ValueObject val){
         int key = val.getKey();
 
         log.info("Adding new value with key " + key);
 
-        //hash the key
-        //get the IP address of the node associated with the hash
-        //send the value to the node
+        nodeManager.addValue(key, val);
 
         return key;
     }
@@ -32,11 +34,7 @@ public class CloudStorageManagerService {
     public int deleteValue(@PathVariable int key){
         log.info("Deleting value with key " + key);
 
-        //hash the key
-        //get the IP address of the node associated with the hash
-        //send the delete request to the node
-
-        //if the node tells us that it could not find the key, return a 404
+        nodeManager.deleteValue(key);
 
         return key;
     }
@@ -46,7 +44,7 @@ public class CloudStorageManagerService {
     public ValueObject queryValueByKey(@PathVariable int key){
         log.info("Querying value with key " + key);
 
-        return null;
+        return nodeManager.getValue(key);
     }
 
     //range query
@@ -54,7 +52,7 @@ public class CloudStorageManagerService {
     public List<ValueObject> queryValuesInRange(@RequestParam int from, @RequestParam int to){
         log.info("Querying values between keys " + from + " and " + to);
 
-        return null;
+        return nodeManager.getValuesInRange(from, to);
     }
 
     //logs
