@@ -8,31 +8,37 @@ import java.io.Serializable;
 
 public class ValueObject implements Serializable {
 
-    @Getter private String trip_id;
-    @Getter private String year;
-    @Getter private String month;
-    @Getter private String week;
-    @Getter private String day;
-    @Getter private String hour;
-    @Getter private String usertype;
-    @Getter private String gender;
-    @Getter private String starttime;
-    @Getter private String stoptime;
-    @Getter private String tripduration;
-    @Getter private String temperature;
-    @Getter private String events;
-    @Getter private String from_station_id;
-    @Getter private String from_station_name;
-    @Getter private String latitude_start;
-    @Getter private String longitude_start;
-    @Getter private String dpcapacity_start;
-    @Getter private String to_station_id;
-    @Getter private String to_station_name;
-    @Getter private String latitude_end;
-    @Getter private String longitude_end;
-    @Getter private String dpcapacity_end;
+    @Getter   private int trip_id;
 
-    public ValueObject(String trip_id, String year, String month, String week, String day, String hour, String usertype, String gender, String starttime, String stoptime, String tripduration, String temperature, String events, String from_station_id, String from_station_name, String latitude_start, String longitude_start, String dpcapacity_start, String to_station_id, String to_station_name, String latitude_end, String longitude_end, String dpcapacity_end) {
+    @Getter private int year;
+    @Getter private int month;
+    @Getter private int week;
+    @Getter private int day;
+    @Getter private int hour;
+
+    private String usertype;
+    private String gender;
+
+    @Getter   private String starttime;
+    @Getter private String stoptime;
+    @Getter   private double tripduration;
+
+    @Getter   private double temperature;
+    @Getter   private String events;
+
+    @Getter private int     from_station_id;
+    @Getter private String  from_station_name;
+    @Getter private double  latitude_start;
+    @Getter private double  longitude_start;
+    @Getter private double  dpcapacity_start;
+
+    @Getter  private int to_station_id;
+    @Getter private String to_station_name;
+    @Getter private double  latitude_end;
+    @Getter private double  longitude_end;
+    @Getter private double  dpcapacity_end;
+
+    public ValueObject(int trip_id, int year, int month, int week, int day, int hour, String usertype, String gender, String starttime, String stoptime, double tripduration, double temperature, String events, int from_station_id, String from_station_name, double latitude_start, double longitude_start, double dpcapacity_start, int to_station_id, String to_station_name, double latitude_end, double longitude_end, double dpcapacity_end) {
         this.trip_id = trip_id;
         this.year = year;
         this.month = month;
