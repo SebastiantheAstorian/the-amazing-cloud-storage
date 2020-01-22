@@ -1,14 +1,12 @@
 package cc.ass5.storagenodes.cloudstoragenode.model;
 
-
 import lombok.Getter;
-
 import java.io.Serializable;
 
 
 public class ValueObject implements Serializable {
 
-    @Getter   private int trip_id;
+    @Getter private int trip_id;
 
     @Getter private int year;
     @Getter private int month;
@@ -19,12 +17,12 @@ public class ValueObject implements Serializable {
     private String usertype;
     private String gender;
 
-    @Getter   private String starttime;
+    @Getter private String starttime;
     @Getter private String stoptime;
-    @Getter   private double tripduration;
+    @Getter private double tripduration;
 
-    @Getter   private double temperature;
-    @Getter   private String events;
+    @Getter private double temperature;
+    @Getter private String events;
 
     @Getter private int     from_station_id;
     @Getter private String  from_station_name;
@@ -32,7 +30,7 @@ public class ValueObject implements Serializable {
     @Getter private double  longitude_start;
     @Getter private double  dpcapacity_start;
 
-    @Getter  private int to_station_id;
+    @Getter private int to_station_id;
     @Getter private String to_station_name;
     @Getter private double  latitude_end;
     @Getter private double  longitude_end;

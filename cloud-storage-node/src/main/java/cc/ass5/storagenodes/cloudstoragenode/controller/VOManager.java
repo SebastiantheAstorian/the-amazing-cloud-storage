@@ -3,9 +3,7 @@ package cc.ass5.storagenodes.cloudstoragenode.controller;
 import cc.ass5.storagenodes.cloudstoragenode.model.ValueObject;
 import cc.ass5.storagenodes.cloudstoragenode.serialization.Serialization;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
