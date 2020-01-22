@@ -1,12 +1,39 @@
+buildscript {
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:2.2.4.RELEASE"
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE"
+		classpath "org.owasp:dependency-check-gradle:3.1.1"
+	}
+}
+
 plugins {
-	id 'org.springframework.boot' version '2.2.3.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'org.springframework.boot' version '2.2.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
 }
+//apply from: 'gradle/idea.gradle'
+apply plugin: "org.springframework.boot"
+
+
+def moduleType = { includeSuffix, excludePrefix = [] ->
+	subprojects.findAll({ subproject ->
+		includeSuffix.any { subproject.name.endsWith("-$it") } &&
+				!excludePrefix.any { subproject.name.startsWith(it) }
+	})
+}
+
+def angularModule = moduleType(["client"])
+
+configure(angularModule) {
+	apply plugin: 'java'
+}
+
+
 
 group = 'com.cc'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
 
 configurations {
 	compileOnly {
@@ -20,11 +47,13 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	compile project(path: ':client', configuration: 'webjar')
 }
 
 test {
