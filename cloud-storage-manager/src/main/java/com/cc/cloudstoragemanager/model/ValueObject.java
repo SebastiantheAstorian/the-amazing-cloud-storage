@@ -22,8 +22,8 @@ public class ValueObject {
     private String usertype;
     private String gender;
 
-    private Instant starttime;
-    private Instant stoptime;
+    private String starttime;
+    private String stoptime;
     private double tripduration;
 
     private double temperature;
