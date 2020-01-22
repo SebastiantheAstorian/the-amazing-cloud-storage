@@ -20,8 +20,7 @@ public class HashFunction {
 
     public String getAddressByKey(int key){
         if (key < 0) throw new IllegalArgumentException("Key must not be less than 0");
-        //TODO create exception handler and controller advice
-
+        
         int hash = getHashValue(key);
         String address = nodeAddresses[hash];
         return address;

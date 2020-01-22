@@ -4,7 +4,6 @@ import com.cc.cloudstoragemanager.model.ValueObject;
 import com.cc.cloudstoragemanager.nodes.NodeManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,6 +55,7 @@ public class CloudStorageManagerService {
     }
 
     //logs
+    //TODO define what the logs should look like
     @GetMapping("/logs")
     public String getLogs(){
         return null;
