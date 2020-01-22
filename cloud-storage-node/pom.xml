@@ -10,9 +10,10 @@
 	</parent>
 	<groupId>cc.ass5.storagenodes</groupId>
 	<artifactId>cloud-storage-node</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>cloud-storage-node</name>
 	<description>Demo project for Spring Boot</description>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
