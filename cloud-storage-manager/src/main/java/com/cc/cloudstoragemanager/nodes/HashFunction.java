@@ -15,13 +15,13 @@ public class HashFunction {
     private int getHashValue(int key){
         int n = nodeAddresses.length;
         int hash = key % n;
-
-        //TODO: check that hash is >= 0
-
         return hash;
     }
 
     public String getAddressByKey(int key){
+        if (key < 0) throw new IllegalArgumentException("Key must not be less than 0");
+        //TODO create exception handler and controller advice
+
         int hash = getHashValue(key);
         String address = nodeAddresses[hash];
         return address;
