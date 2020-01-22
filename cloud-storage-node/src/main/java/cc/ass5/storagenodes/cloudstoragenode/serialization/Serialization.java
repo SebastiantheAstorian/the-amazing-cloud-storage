@@ -1,6 +1,7 @@
 package cc.ass5.storagenodes.cloudstoragenode.serialization;
 
 
+import cc.ass5.storagenodes.cloudstoragenode.errorhandling.ValueObjectAlreadyExistException;
 import cc.ass5.storagenodes.cloudstoragenode.errorhandling.ValueObjectNotAvailableException;
 import cc.ass5.storagenodes.cloudstoragenode.model.ValueObject;
 
@@ -36,6 +37,10 @@ public class Serialization implements Serializable {
 
     public ValueObject addValueObject(ValueObject valueObject){
         try{
+            ValueObject valueObject1 = getValueObjectByKey(valueObject.getTrip_id());
+            if (valueObject1 != null){
+                throw new ValueObjectAlreadyExistException(valueObject.getTrip_id());
+            }
             os = new ObjectOutputStream(new FileOutputStream(file));
             valueObjectList.add(valueObject);
             os.writeObject(valueObjectList);
@@ -68,6 +73,9 @@ public class Serialization implements Serializable {
     public ValueObject removeValueObject(int key) {
         try{
             ValueObject valueObject = getValueObjectByKey(key);
+            if (valueObject == null){
+                throw new ValueObjectNotAvailableException(key);
+            }
             os = new ObjectOutputStream(new FileOutputStream(file));
             for (int i = 0; i < valueObjectList.size(); i++){
                 if (valueObjectList.get(i).getTrip_id() == key){
@@ -91,7 +99,7 @@ public class Serialization implements Serializable {
                 return v;
             }
         }
-        throw new ValueObjectNotAvailableException(key);
+        return null;
     }
 
 }
