@@ -7,7 +7,7 @@ import java.util.List;
  * whose file names are already used.
  */
 public class ValueObjectNotAvailableException extends RuntimeException {
-    public ValueObjectNotAvailableException(String key) {
+    public ValueObjectNotAvailableException(int key) {
         super("ValueObject with key  " + key + " not available");
     }
 }

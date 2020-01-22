@@ -16,8 +16,8 @@ public class NodeController  {
 
     VOManager voManager = VOManager.getInstance();
 
-
-
+    @Value("${nodes.addresses}")
+    private String[] nodeAddresses;
 
     @PostMapping("/values")
     public void addValue(@RequestBody ValueObject valueObject){
@@ -26,19 +26,19 @@ public class NodeController  {
 
 
     @DeleteMapping("/values/{key}")
-    public void deleteValue(@PathVariable String key){
+    public void deleteValue(@PathVariable int key){
         voManager.deleteValueObject(key);
 
     }
 
     @GetMapping("/values/{key}")
-    public ValueObject getValueByKey(@PathVariable String key){
+    public ValueObject getValueByKey(@PathVariable int key){
         return voManager.getValueObject(key);
     }
 
 
     @GetMapping(value="/values", params = {"from", "to"})
-    public List<ValueObject> getValuesInRange(@RequestParam("from") String key1, @RequestParam("to") String key2){
+    public List<ValueObject> getValuesInRange(@RequestParam("from") int key1, @RequestParam("to") int key2){
         return voManager.getValuesInRange(key1, key2);
     }
 

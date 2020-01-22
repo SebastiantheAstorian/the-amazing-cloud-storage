@@ -33,26 +33,23 @@ public class VOManager {
         log.info("Added valueobject with key " + valueObject.getTrip_id());
     }
 
-    public void deleteValueObject(String key){
+    public void deleteValueObject(int key){
         serialization.removeValueObject(key);
         log.info("Deleted valueobject with key " + key);
     }
 
-    public ValueObject getValueObject(String key){
+    public ValueObject getValueObject(int key){
         ValueObject valueObject = serialization.getValueObjectByKey(key);
         log.info("valueobject with key " + key + " retrieved");
         return valueObject;
     }
 
-    public List<ValueObject> getValuesInRange(String key1, String key2){
+    public List<ValueObject> getValuesInRange(int key1, int key2){
         List<ValueObject> valueObjectListResult = new ArrayList<>();
         List<ValueObject> valueObjectListAll = serialization.getValueObjectList();
-        int key1Integer = Integer.parseInt(key1);
-        int key2Integer = Integer.parseInt(key2);
 
         for (ValueObject v : valueObjectListAll){
-            int currentKey = Integer.parseInt(v.getTrip_id());
-            if (currentKey >= key1Integer && currentKey <= key2Integer){
+            if (v.getTrip_id() >= key1 && v.getTrip_id() <= key2){
                 valueObjectListResult.add(v);
             }
         }

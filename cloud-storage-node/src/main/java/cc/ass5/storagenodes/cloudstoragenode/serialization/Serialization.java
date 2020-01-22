@@ -65,12 +65,12 @@ public class Serialization implements Serializable {
         }
     }
 
-    public ValueObject removeValueObject(String key) {
+    public ValueObject removeValueObject(int key) {
         try{
             ValueObject valueObject = getValueObjectByKey(key);
             os = new ObjectOutputStream(new FileOutputStream(file));
             for (int i = 0; i < valueObjectList.size(); i++){
-                if (valueObjectList.get(i).getTrip_id().equals(key)){
+                if (valueObjectList.get(i).getTrip_id() == key){
                     valueObject = valueObjectList.get(i);
                     valueObjectList.remove(i);
                 }
@@ -84,10 +84,10 @@ public class Serialization implements Serializable {
         return null;
     }
 
-    public ValueObject getValueObjectByKey(String key) {
+    public ValueObject getValueObjectByKey(int key) {
         List<ValueObject> valueObjectList = getValueObjectList();
         for (ValueObject v : valueObjectList){
-            if (v.getTrip_id().equals(key)){
+            if (v.getTrip_id() == key){
                 return v;
             }
         }
