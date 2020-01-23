@@ -1,5 +1,6 @@
 package cc.ass5.storagenodes.cloudstoragenode.controller;
 
+import cc.ass5.storagenodes.cloudstoragenode.errorhandling.ValueObjectAlreadyExistException;
 import cc.ass5.storagenodes.cloudstoragenode.errorhandling.ValueObjectNotAvailableException;
 import cc.ass5.storagenodes.cloudstoragenode.model.ValueObject;
 import cc.ass5.storagenodes.cloudstoragenode.serialization.Serialization;
@@ -30,9 +31,15 @@ public class VOManager {
     }
 
     public int addValueObject(ValueObject valueObject){
-        serialization.addValueObject(valueObject);
-        log.info("Added valueobject with key " + valueObject.getTrip_id());
-        return valueObject.getTrip_id();
+        try{
+            serialization.addValueObject(valueObject);
+            log.info("Added valueobject with key " + valueObject.getTrip_id());
+            return valueObject.getTrip_id();
+        }catch (ValueObjectAlreadyExistException e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Key already exists"
+            );
+        }
     }
 
     public int deleteValueObject(int key){

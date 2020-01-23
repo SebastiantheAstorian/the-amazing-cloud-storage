@@ -14,8 +14,8 @@ public class ValueObject implements Serializable {
     @Getter private int day;
     @Getter private int hour;
 
-    private String usertype;
-    private String gender;
+    @Getter private String usertype;
+    @Getter private String gender;
 
     @Getter private String starttime;
     @Getter private String stoptime;
