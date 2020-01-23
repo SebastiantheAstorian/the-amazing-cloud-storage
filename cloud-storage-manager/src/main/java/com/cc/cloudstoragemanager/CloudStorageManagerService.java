@@ -12,8 +12,11 @@ import java.util.List;
 @RestController
 public class CloudStorageManagerService {
 
-    @Autowired
     private NodeManager nodeManager;
+
+    public CloudStorageManagerService(NodeManager nodeManager) {
+        this.nodeManager = nodeManager;
+    }
 
 
     //add value
@@ -52,12 +55,5 @@ public class CloudStorageManagerService {
         log.info("Querying values between keys " + from + " and " + to);
 
         return nodeManager.getValuesInRange(from, to);
-    }
-
-    //logs
-    //TODO define what the logs should look like
-    @GetMapping("/logs")
-    public String getLogs(){
-        return null;
     }
 }
