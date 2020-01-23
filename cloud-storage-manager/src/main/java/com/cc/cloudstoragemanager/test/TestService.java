@@ -12,8 +12,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -31,7 +33,7 @@ public class TestService {
     @GetMapping("/test")
     public String getTestLogs() {
         //insert data on nodes
-        List<ValueObject> valuesToInsert = new ArrayList<>();
+        Set<ValueObject> valuesToInsert = new TreeSet<>(Comparator.comparing(ValueObject::getKey));
         String testfile = getClass().getClassLoader().getResource("testdata.csv").getFile();
         try (BufferedReader br = new BufferedReader(new FileReader(testfile))) {
             String line;
