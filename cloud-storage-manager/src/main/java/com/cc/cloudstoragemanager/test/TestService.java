@@ -1,8 +1,12 @@
 package com.cc.cloudstoragemanager.test;
 
+import com.cc.cloudstoragemanager.CloudStorageManagerService;
 import com.cc.cloudstoragemanager.model.ValueObject;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,12 +14,19 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Test class which does an example run of the application's functionality
  */
 @RestController
+@AllArgsConstructor
 public class TestService {
+
+    private CloudStorageManagerService cloudStorageManagerService;
+
+    @Value("${nodes.addresses}")
+    private String[] nodeAddresses;
 
     @GetMapping("/test")
     public String getTestLogs() {
@@ -34,8 +45,50 @@ public class TestService {
         //used to find the relevant Logs
         Instant startTime = Instant.now();
 
+        // 1. Insert values
+        List<Integer> insertedKeys = valuesToInsert.stream()
+                .map(val -> cloudStorageManagerService.addValue(val))
+                .collect(Collectors.toList());
+
+        String fileStatusLog = getFileStatuses();
+
+
+        // 2. Access single values
+        for (int i = insertedKeys.get(0); i < insertedKeys.get(0) + 10; i++) {
+            cloudStorageManagerService.queryValueByKey(insertedKeys.get(i));
+        }
+
+        // 3. Access by range query
+        cloudStorageManagerService.queryValuesInRange(insertedKeys.get(3), insertedKeys.get(40));
+
+        // 4. Delete keys
+        //delete first 50 keys, and every on a certain node
+        List<Integer> collect = insertedKeys.stream()
+                .filter(key -> key < insertedKeys.get(0) + 51 || key % nodeAddresses.length == 1)
+                .map(key -> cloudStorageManagerService.deleteValue(key))
+                .collect(Collectors.toList());
+
+        Instant endTime = Instant.now();
+
+        List<String> logs = getNodeLogs();
+
 
         return "test";
+    }
+
+    private String getFileStatuses() {
+        RestTemplate restTemplate = new RestTemplate();
+        StringBuilder fileStatus = new StringBuilder();
+        for (String adress : nodeAddresses) {
+            fileStatus.append(restTemplate.getForObject(adress + "/test/file", String.class));
+            fileStatus.append("\n\n");
+        }
+
+        return fileStatus.toString();
+    }
+
+    private List<String> getNodeLogs() {
+        return null;
     }
 
     private ValueObject convertToValueObject(String[] values) {
