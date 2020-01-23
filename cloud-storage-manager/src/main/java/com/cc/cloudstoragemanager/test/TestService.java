@@ -45,7 +45,6 @@ public class TestService {
             e.printStackTrace();
         }
         //used to find the relevant Logs
-        Instant startTime = Instant.now();
 
         // 1. Insert values
         List<Integer> insertedKeys = valuesToInsert.stream()
@@ -56,7 +55,7 @@ public class TestService {
 
 
         // 2. Access single values
-        for (int i = insertedKeys.get(0); i < insertedKeys.get(0) + 10; i++) {
+        for (int i = 0; i < 10; i++) {
             cloudStorageManagerService.queryValueByKey(insertedKeys.get(i));
         }
 
@@ -65,17 +64,23 @@ public class TestService {
 
         // 4. Delete keys
         //delete first 50 keys, and every on a certain node
-        List<Integer> collect = insertedKeys.stream()
+        List<Integer> deletedKeys = insertedKeys.stream()
                 .filter(key -> key < insertedKeys.get(0) + 51 || key % nodeAddresses.length == 1)
                 .map(key -> cloudStorageManagerService.deleteValue(key))
                 .collect(Collectors.toList());
 
-        Instant endTime = Instant.now();
+        String logs = getNodeLogs();
 
-        List<String> logs = getNodeLogs();
+        List<Integer> toCleanKeys = insertedKeys.stream()
+                .filter(key -> !deletedKeys.contains(key))
+                .map(key -> cloudStorageManagerService.deleteValue(key))
+                .collect(Collectors.toList());
+        //cleanup(toCleanKeys);
+        return fileStatusLog + "\n" + logs;
+    }
 
-
-        return "test";
+    private void cleanup(List<Integer> keys) {
+        keys.forEach(cloudStorageManagerService::deleteValue);
     }
 
     private String getFileStatuses() {
@@ -89,8 +94,15 @@ public class TestService {
         return fileStatus.toString();
     }
 
-    private List<String> getNodeLogs() {
-        return null;
+    private String getNodeLogs() {
+        RestTemplate restTemplate = new RestTemplate();
+        StringBuilder logs = new StringBuilder();
+        for (String adress : nodeAddresses) {
+            logs.append(restTemplate.getForObject(adress + "/logs", String.class));
+            logs.append("\n\n");
+        }
+
+        return logs.toString();
     }
 
     private ValueObject convertToValueObject(String[] values) {

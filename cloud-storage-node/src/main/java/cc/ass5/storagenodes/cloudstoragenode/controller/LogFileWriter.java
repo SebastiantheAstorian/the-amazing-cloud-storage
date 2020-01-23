@@ -20,7 +20,7 @@ public class LogFileWriter {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter("testlog.log", true));
-            writer.append("\n");
+            writer.append("xxx\nxxx");
             writer.append(logMsg);
             writer.close();
         } catch (IOException e) {
@@ -35,7 +35,7 @@ public class LogFileWriter {
             String currentLine = reader.readLine();
             while (currentLine != null) {
                 builder.append(currentLine);
-                builder.append("n");
+                builder.append("xxx\nxxx");
                 currentLine = reader.readLine();
             }
             reader.close();

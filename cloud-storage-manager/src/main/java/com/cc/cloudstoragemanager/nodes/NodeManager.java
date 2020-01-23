@@ -29,7 +29,7 @@ public class NodeManager {
         address = address + "/values";
 
         log.info("starting post request to address " + address);
-        restTemplate.postForObject(address, val, ValueObject.class);
+        restTemplate.postForObject(address, val, Integer.class);
     }
 
 
