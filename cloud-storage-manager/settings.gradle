@@ -1,1 +1,3 @@
 rootProject.name = 'cloud-storage-manager'
+
+include "client"

@@ -1,0 +1,110 @@
+<mat-card class="border-card">
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+      <form class="query-form">
+        <h3>Query Values by Key</h3>
+        <mat-form-field class="query-field">
+          <input type="number" name="keyInput" matInput placeholder="Key" [(ngModel)]="queryValue">
+        </mat-form-field>
+        <button mat-button (click)="querySingleValue()">Query Value</button>
+      </form>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <form class="query-form">
+        <h3>Query Values by Key Range</h3>
+        <mat-form-field class="query-field">
+          <input type="number" name="toKeyInput" matInput placeholder="from" [(ngModel)]="fromValue">
+        </mat-form-field>
+        <mat-form-field class="query-field">
+          <input type="number" name="fromKeyInput" matInput placeholder="to" [(ngModel)]="toValue">
+        </mat-form-field>
+        <button mat-button (click)="queryRange()">Query Range</button>
+      </form>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card>
+
+<mat-card>
+  <h3>Result</h3>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="trip_id">
+      <th mat-header-cell *matHeaderCellDef> Trip ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.trip_id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef> Year </th>
+      <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="month">
+      <th mat-header-cell *matHeaderCellDef> Month </th>
+      <td mat-cell *matCellDef="let element"> {{element.month}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="week">
+      <th mat-header-cell *matHeaderCellDef> Week </th>
+      <td mat-cell *matCellDef="let element"> {{element.week}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="day">
+      <th mat-header-cell *matHeaderCellDef> Day </th>
+      <td mat-cell *matCellDef="let element"> {{element.day}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hour">
+      <th mat-header-cell *matHeaderCellDef> Hour </th>
+      <td mat-cell *matCellDef="let element"> {{element.hour}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="usertype">
+      <th mat-header-cell *matHeaderCellDef> User Type </th>
+      <td mat-cell *matCellDef="let element"> {{element.usertype}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef> Gender </th>
+      <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="starttime">
+      <th mat-header-cell *matHeaderCellDef> Start Time </th>
+      <td mat-cell *matCellDef="let element"> {{element.starttime}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="stoptime">
+      <th mat-header-cell *matHeaderCellDef> Stop Time</th>
+      <td mat-cell *matCellDef="let element"> {{element.stoptime}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tripduration">
+      <th mat-header-cell *matHeaderCellDef> Trip Duration</th>
+      <td mat-cell *matCellDef="let element"> {{element.tripduration}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="temperature">
+      <th mat-header-cell *matHeaderCellDef> Temperature </th>
+      <td mat-cell *matCellDef="let element"> {{element.temperature}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="events">
+      <th mat-header-cell *matHeaderCellDef> Events</th>
+      <td mat-cell *matCellDef="let element"> {{element.events}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="from_station_name">
+      <th mat-header-cell *matHeaderCellDef> From Station </th>
+      <td mat-cell *matCellDef="let element"> {{element.from_station_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="to_station_name">
+      <th mat-header-cell *matHeaderCellDef> To Station</th>
+      <td mat-cell *matCellDef="let element"> {{element.to_station_name}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</mat-card>
