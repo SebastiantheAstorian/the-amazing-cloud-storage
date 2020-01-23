@@ -1,8 +1,11 @@
 package cc.ass5.storagenodes.cloudstoragenode.controller;
 
+import cc.ass5.storagenodes.cloudstoragenode.errorhandling.ValueObjectNotAvailableException;
 import cc.ass5.storagenodes.cloudstoragenode.model.ValueObject;
 import cc.ass5.storagenodes.cloudstoragenode.serialization.Serialization;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +29,22 @@ public class VOManager {
         serialization = new Serialization("storage.ser");
     }
 
-    public void addValueObject(ValueObject valueObject){
+    public int addValueObject(ValueObject valueObject){
         serialization.addValueObject(valueObject);
         log.info("Added valueobject with key " + valueObject.getTrip_id());
+        return valueObject.getTrip_id();
     }
 
-    public void deleteValueObject(int key){
-        serialization.removeValueObject(key);
+    public int deleteValueObject(int key){
+        try {
+            serialization.removeValueObject(key);
+        }catch (ValueObjectNotAvailableException e){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Key not found"
+            );
+        }
         log.info("Deleted valueobject with key " + key);
+        return key;
     }
 
     public ValueObject getValueObject(int key){
