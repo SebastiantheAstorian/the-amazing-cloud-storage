@@ -1,0 +1,134 @@
+configurations {
+  webjar
+}
+
+ext.clientDistDir = "${project.buildDir}/ng-dist"
+ext.clientBuildResourcesDir = "${project.buildDir}/webjar/src/main/generated/${project.name}/resources"
+ext.frocBuildDir = '/froc-build'
+
+boolean existsFrocBuildDir() {
+  new File(frocBuildDir).exists()
+}
+
+// Copy node_modules from /froc-build if it exists (inside Docker container docker-base-froc-builds)
+task copyFrocNodeModules(type: Exec) {
+  onlyIf {
+    existsFrocBuildDir()
+  }
+
+  group = 'Build'
+  description = 'Copy "docker-base-froc-build pre-build node_modules"'
+
+  executable 'cp'
+  args = ['-r', "${frocBuildDir}/node_modules", '.']
+}
+
+// Copy .npmrc from /froc-build if it exists (inside Docker container docker-base-froc-builds)
+task copyFrocNpmrc(type: Exec) {
+  onlyIf {
+    existsFrocBuildDir()
+  }
+
+  group = 'Build'
+  description = 'Copy "docker-base-froc-build .npmrc"'
+
+  executable 'cp'
+  args = ['-rf', "${frocBuildDir}/.npmrc", '.']
+}
+
+// Executes "npm install" with settings from .npmrc
+task npmInstall(type: Exec) {
+  group = 'Build'
+  description = 'Execute "npm install"'
+
+  inputs.files "${project.projectDir}/package.json", "${project.projectDir}/package-lock.json"
+  outputs.dir "${project.projectDir}/node_modules"
+
+  dependsOn copyFrocNodeModules, copyFrocNpmrc
+  String osName = System.getProperty("os.name").toLowerCase()
+  if (osName.contains("windows")) {
+    commandLine "npm.cmd", "install", "--no-save"
+  } else {
+    executable 'npm'
+    args = ['install', '--no-save']
+
+  }
+
+}
+
+// Executes "npm run lint"
+task ngLint(type: Exec) {
+  group = 'Build'
+  description = 'Execute "npm run lint" command'
+  dependsOn npmInstall
+  String osName = System.getProperty("os.name").toLowerCase()
+  if (osName.contains("windows")) {
+    commandLine "npm.cmd", "run", "lint", "--fix=true"
+  } else {
+    executable 'npm'
+    args = ['run', 'lint', '--fix=true']
+
+  }
+
+ // executable 'npm'
+  //args = ['run', 'lint']
+}
+
+// Builds the client application with "npm run prodBuild".
+task ngBuild(type: Exec) {
+  group = 'Build'
+  description = 'Execute "npm run prodBuild" command'
+
+  inputs.dir "${project.projectDir}/src/"
+  inputs.dir "${project.projectDir}/e2e/"
+  inputs.files "${project.projectDir}/.angular-cli.json",
+    "${project.projectDir}/karma.conf.js",
+    "${project.projectDir}/package.json",
+    "${project.projectDir}/package-lock.json",
+    "${project.projectDir}/protractor.conf.js",
+    "${project.projectDir}/proxy.config.json",
+    "${project.projectDir}/tsconfig.json",
+    "${project.projectDir}/tslint.json"
+  outputs.dir clientDistDir
+
+  dependsOn(ngLint, npmInstall)
+  String osName = System.getProperty("os.name").toLowerCase()
+  if (osName.contains("windows")) {
+    commandLine "npm.cmd", "run","prodBuild"
+  } else {
+    executable 'npm'
+    args = ['run', 'prodBuild']
+  }
+}
+
+// Copies the build outcome from task "ngBuild" into the directory used
+// for building the webjar
+task generateWebjarResources(type: Copy) {
+  inputs.dir clientDistDir
+  outputs.dir clientBuildResourcesDir
+
+  dependsOn ngBuild
+  from fileTree(clientDistDir)
+  into "${clientBuildResourcesDir}/META-INF/resources/webjars/${project.name}"
+}
+
+// Builds the webjar containing the client application resources
+task webjarJar(type: Jar) {
+  group = 'Build'
+  description = 'Build a jar having the JavaScript App in META/resources/<project name>'
+
+  destinationDir = file("${project.buildDir}/libs")
+  baseName = project.name
+  version = project.version
+  classifier = "webjar"
+
+  dependsOn generateWebjarResources
+
+  from "${clientBuildResourcesDir}"
+}
+
+artifacts {
+  webjar webjarJar
+}
+
+rootProject.build.dependsOn webjarJar
