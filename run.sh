@@ -38,10 +38,4 @@ java -jar -Dserver.port=6060 cloud-storage-node-1.jar & > /dev/null 2>&1
 cd ../node4
 java -jar -Dserver.port=7070 cloud-storage-node-1.jar & > /dev/null 2>&1
 cd ../../..
-
-echo starting test in 10 seconds
-sleep 10
-curl http://localhost:8080/test | tee storagelog.log
-
-echo Output logged in storage-log.log
-pkill java > /dev/null 2>&1
+echo started application go to localhost:8080 to use the web client
