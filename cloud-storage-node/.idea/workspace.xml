@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4dc70da-484b-4be5-804d-2fa6d368ed6c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../cloud-storage-manager/src/main/java/com/cc/cloudstoragemanager/model/ValueObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-storage-manager/src/main/java/com/cc/cloudstoragemanager/model/ValueObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-storage-manager/src/main/java/com/cc/cloudstoragemanager/nodes/NodeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-storage-manager/src/main/java/com/cc/cloudstoragemanager/nodes/NodeManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cloud-storage-manager/src/main/java/com/cc/cloudstoragemanager/test/TestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../cloud-storage-manager/src/main/java/com/cc/cloudstoragemanager/test/TestService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cc/ass5/storagenodes/cloudstoragenode/controller/LogFileWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cc/ass5/storagenodes/cloudstoragenode/controller/LogFileWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cc/ass5/storagenodes/cloudstoragenode/controller/VOManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cc/ass5/storagenodes/cloudstoragenode/controller/VOManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -41,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cc/ass5/storagenodes/cloudstoragenode/controller/VOManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="87" column="95" selection-start-line="87" selection-start-column="95" selection-end-line="87" selection-end-column="95" />
+            <state relative-caret-position="660">
+              <caret line="91" column="18" lean-forward="true" selection-start-line="91" selection-start-column="18" selection-end-line="91" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -388,11 +382,18 @@
       <option name="project" value="LOCAL" />
       <updated>1579806547169</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="finished testing class log grabbing code">
+      <created>1579812321437</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1579812321438</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8049000" />
+    <option name="totallyTimeSpent" value="8094000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -408,7 +409,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32719395" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32719395" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39869988" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -439,7 +440,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fixed several configs that failed web service calls with RestTemplate" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed several configs that failed web service calls with RestTemplate" />
+    <MESSAGE value="finished testing class log grabbing code" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished testing class log grabbing code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -595,8 +597,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cc/ass5/storagenodes/cloudstoragenode/controller/VOManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="87" column="95" selection-start-line="87" selection-start-column="95" selection-end-line="87" selection-end-column="95" />
+        <state relative-caret-position="660">
+          <caret line="91" column="18" lean-forward="true" selection-start-line="91" selection-start-column="18" selection-end-line="91" selection-end-column="18" />
         </state>
       </provider>
     </entry>
