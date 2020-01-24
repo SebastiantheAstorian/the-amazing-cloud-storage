@@ -9,15 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+
 /**
  * Test class which does an example run of the application's functionality
  */
@@ -35,13 +33,10 @@ public class TestService {
         //insert data on nodes
         Set<ValueObject> valuesToInsert = new TreeSet<>(Comparator.comparing(ValueObject::getKey));
 
-        File file = null;
+        InputStream fileStream = null;
         try {
-            file = new ClassPathResource("testdata.csv").getFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            fileStream = new ClassPathResource("testdata.csv").getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(fileStream));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
