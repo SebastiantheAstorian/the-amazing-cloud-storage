@@ -4,21 +4,20 @@ import com.cc.cloudstoragemanager.CloudStorageManagerService;
 import com.cc.cloudstoragemanager.model.ValueObject;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
-import java.io.File;
-import org.springframework.core.io.ClassPathResource;
 /**
  * Test class which does an example run of the application's functionality
  */
@@ -35,9 +34,14 @@ public class TestService {
     public String getTestLogs() {
         //insert data on nodes
         Set<ValueObject> valuesToInsert = new TreeSet<>(Comparator.comparing(ValueObject::getKey));
-        
-        File file = new ClassPathResource("testdata.csv").getFile();
-	try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+
+        File file = null;
+        try {
+            file = new ClassPathResource("testdata.csv").getFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
