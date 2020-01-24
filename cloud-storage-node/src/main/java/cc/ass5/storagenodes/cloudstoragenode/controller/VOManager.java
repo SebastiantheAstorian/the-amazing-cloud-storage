@@ -85,7 +85,7 @@ public class VOManager {
     //return String describing current file status
     public String getFileStatus() {
         try {
-            return "Node on port " + String.valueOf(myPort) + "; File storage.ser:"+ "xxx\nxxx" + new ObjectMapper().writeValueAsString(serialization.getValueObjectList());
+            return "Node on port " + String.valueOf(myPort) + "; File storage.ser:"+ "\n" + new ObjectMapper().writeValueAsString(serialization.getValueObjectList());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
