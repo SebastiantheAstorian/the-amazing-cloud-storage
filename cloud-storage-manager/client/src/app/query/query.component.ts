@@ -85,7 +85,7 @@ export class QueryComponent implements OnInit {
         this.queryValue = '';
       },
       (error) => {
-        this.snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
+        this.snackBar.open('There was an error querying the value', 'Close', {duration: 3000});
       });
   }
 
@@ -96,7 +96,7 @@ export class QueryComponent implements OnInit {
         this.toValue = '';
       },
       (error) => {
-        this.snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
+        this.snackBar.open('There was an error querying the values', 'Close', {duration: 3000});
       }
     );
   }

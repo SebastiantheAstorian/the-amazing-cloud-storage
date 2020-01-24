@@ -17,7 +17,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
-
+import java.io.File;
+import org.springframework.core.io.ClassPathResource;
 /**
  * Test class which does an example run of the application's functionality
  */
@@ -34,8 +35,9 @@ public class TestService {
     public String getTestLogs() {
         //insert data on nodes
         Set<ValueObject> valuesToInsert = new TreeSet<>(Comparator.comparing(ValueObject::getKey));
-        String testfile = getClass().getClassLoader().getResource("testdata.csv").getFile();
-        try (BufferedReader br = new BufferedReader(new FileReader(testfile))) {
+        
+        File file = new ClassPathResource("testdata.csv").getFile();
+	try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
