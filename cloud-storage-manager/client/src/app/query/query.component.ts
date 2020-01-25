@@ -3,24 +3,8 @@ import {WebclientService} from '../service/webclient.service';
 import {BikeData} from '../model/BikeData';
 import {MatSnackBar} from '@angular/material';
 
-@Component({
-  selector: 'app-query',
-  templateUrl: './query.component.html',
-  styleUrls: ['./query.component.scss']
-})
-export class QueryComponent implements OnInit {
-  queryValue = '';
-  toValue = '';
-  fromValue = '';
+/*
 
-  displayedColumns: string[] = [
-    'trip_id', 'year', 'month', 'week', 'day', 'hour',
-    'usertype', 'gender', 'starttime', 'stoptime', 'tripduration', 'temperature',
-    'events', 'from_station_name', 'to_station_name'
-  ];
-
-  // todo: replace with empty array when real data is there
-  dataSource: BikeData[] = [
     {
       trip_id: '123',
       year: 2020,
@@ -71,6 +55,26 @@ export class QueryComponent implements OnInit {
       to_station_id: 'da_finish',
       to_station_name: 'this da finish'
     }
+ */
+
+
+@Component({
+  selector: 'app-query',
+  templateUrl: './query.component.html',
+  styleUrls: ['./query.component.scss']
+})
+export class QueryComponent implements OnInit {
+  queryValue = '';
+  toValue = '';
+  fromValue = '';
+
+  displayedColumns: string[] = [
+    'trip_id', 'year', 'month', 'week', 'day', 'hour',
+    'usertype', 'gender', 'starttime', 'stoptime', 'tripduration', 'temperature',
+    'events', 'from_station_name', 'to_station_name'
+  ];
+
+  dataSource: BikeData[] = [
   ];
 
   constructor(private webclient: WebclientService, private snackBar: MatSnackBar) {
@@ -85,7 +89,7 @@ export class QueryComponent implements OnInit {
         this.queryValue = '';
       },
       (error) => {
-        this.snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
+        this.snackBar.open('There was an error querying the value', 'Close', {duration: 3000});
       });
   }
 
@@ -96,7 +100,7 @@ export class QueryComponent implements OnInit {
         this.toValue = '';
       },
       (error) => {
-        this.snackBar.open('There was an error uploading the input values', 'Close', {duration: 3000});
+        this.snackBar.open('There was an error querying the values', 'Close', {duration: 3000});
       }
     );
   }

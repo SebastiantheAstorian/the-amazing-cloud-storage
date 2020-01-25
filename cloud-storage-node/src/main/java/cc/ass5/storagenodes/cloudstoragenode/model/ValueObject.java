@@ -1,9 +1,10 @@
 package cc.ass5.storagenodes.cloudstoragenode.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import java.io.Serializable;
 
-
+@AllArgsConstructor
 public class ValueObject implements Serializable {
 
     @Getter private int trip_id;
@@ -36,32 +37,4 @@ public class ValueObject implements Serializable {
     @Getter private double  longitude_end;
     @Getter private double  dpcapacity_end;
 
-    public ValueObject(int trip_id, int year, int month, int week, int day, int hour, String usertype, String gender, String starttime, String stoptime, double tripduration, double temperature, String events, int from_station_id, String from_station_name, double latitude_start, double longitude_start, double dpcapacity_start, int to_station_id, String to_station_name, double latitude_end, double longitude_end, double dpcapacity_end) {
-        this.trip_id = trip_id;
-        this.year = year;
-        this.month = month;
-        this.week = week;
-        this.day = day;
-        this.hour = hour;
-        this.usertype = usertype;
-        this.gender = gender;
-        this.starttime = starttime;
-        this.stoptime = stoptime;
-        this.tripduration = tripduration;
-        this.temperature = temperature;
-        this.events = events;
-        this.from_station_id = from_station_id;
-        this.from_station_name = from_station_name;
-        this.latitude_start = latitude_start;
-        this.longitude_start = longitude_start;
-        this.dpcapacity_start = dpcapacity_start;
-        this.to_station_id = to_station_id;
-        this.to_station_name = to_station_name;
-        this.latitude_end = latitude_end;
-        this.longitude_end = longitude_end;
-        this.dpcapacity_end = dpcapacity_end;
-    }
-
-    public ValueObject() {
-    }
 }

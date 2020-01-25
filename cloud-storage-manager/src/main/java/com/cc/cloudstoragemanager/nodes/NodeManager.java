@@ -24,17 +24,12 @@ public class NodeManager {
     }
 
 
-
-    //TODO: uncomment the restTemplate calls
-
-
-
     public void addValue(int key, ValueObject val) {
         String address = hashFunction.getAddressByKey(key);
         address = address + "/values";
 
         log.info("starting post request to address " + address);
-        //restTemplate.postForObject(address, val, ValueObject.class);
+        restTemplate.postForObject(address, val, Integer.class);
     }
 
 
@@ -44,7 +39,7 @@ public class NodeManager {
         address = address + "/values/" + key;
 
         log.info("starting delete request to address " + address);
-        //restTemplate.delete(address);
+        restTemplate.delete(address);
     }
 
 
@@ -54,13 +49,13 @@ public class NodeManager {
         address = address + "/values/" + key;
 
         log.info("starting get request to address " + address);
-        //ValueObject val = restTemplate.getForObject(address, ValueObject.class);
+        ValueObject val = restTemplate.getForObject(address, ValueObject.class);
 
-        ValueObject val = new ValueObject(key, 2000, 1, 3, 22, 14,
+        /*ValueObject val = new ValueObject(key, 2000, 1, 3, 22, 14,
                 "subscriber", "female", "10:00", "12:00", 120,
                 22, "funny events", 2334, "station 2334", 41.939, -87.665, 55,
                 3456, "station 3456", 41.547, -87.442, 18);
-
+*/
         return val;
     }
 
@@ -77,14 +72,14 @@ public class NodeManager {
 
             log.info("starting get request (range query) to address " + address);
 
-            /*
+
             ValueObject[] currentValues = restTemplate.getForObject(address, ValueObject[].class);
 
             for (ValueObject val: currentValues) {
                 values.add(val);
             }
 
-             */
+
         }
 
         return values;

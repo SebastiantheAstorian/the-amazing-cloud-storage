@@ -1,15 +1,18 @@
 package com.cc.cloudstoragemanager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
-
-import java.time.Instant;
 
 /**
  * the objects that can be stored in the cloud storage system
  */
 @Value
+@AllArgsConstructor
+@JsonDeserialize(builder = ValueObject.Builder.class)
+@Builder(builderClassName = "Builder", toBuilder = true)
 public class ValueObject {
     //field names are not in camel case for the sake of conformity with the input CSV file
 
