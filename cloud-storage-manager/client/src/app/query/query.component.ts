@@ -74,8 +74,7 @@ export class QueryComponent implements OnInit {
     'events', 'from_station_name', 'to_station_name'
   ];
 
-  dataSource: BikeData[] = [
-  ];
+  dataSource: BikeData[] = [];
 
   constructor(private webclient: WebclientService, private snackBar: MatSnackBar) {
   }
@@ -85,7 +84,11 @@ export class QueryComponent implements OnInit {
 
   querySingleValue() {
     this.webclient.querySingleValue(this.queryValue).subscribe(response => {
-        this.dataSource = [response];
+        if (response) {
+          this.dataSource = [response];
+        } else {
+          this.dataSource = [];
+        }
         this.queryValue = '';
       },
       (error) => {

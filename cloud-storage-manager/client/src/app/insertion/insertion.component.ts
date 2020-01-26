@@ -51,7 +51,6 @@ export class InsertionComponent implements OnInit {
     this.webClient.insertValue(this.value).subscribe(
       response => {
         this.snackBar.open('Insert successful. Key: ' + response, 'Close', {duration: 10000});
-        this.value = this.initialvalue;
       },
       error => {
         console.log('error occured on insert!');
