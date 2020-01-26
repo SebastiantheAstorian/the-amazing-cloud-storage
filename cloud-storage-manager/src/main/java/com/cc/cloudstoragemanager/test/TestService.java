@@ -66,7 +66,7 @@ public class TestService {
         // 4. Delete keys
         //delete first 50 keys, and every on a certain node
         List<Integer> deletedKeys = insertedKeys.stream()
-                .filter(key -> key < insertedKeys.get(0) + 51 || key % nodeAddresses.length == 1)
+                .filter(key -> key < insertedKeys.get(0) + 5 || key % nodeAddresses.length == 1)
                 .map(key -> cloudStorageManagerService.deleteValue(key))
                 .collect(Collectors.toList());
 
