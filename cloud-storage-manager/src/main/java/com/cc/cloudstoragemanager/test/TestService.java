@@ -61,7 +61,7 @@ public class TestService {
         }
 
         // 3. Access by range query
-        cloudStorageManagerService.queryValuesInRange(insertedKeys.get(3), insertedKeys.get(40));
+        cloudStorageManagerService.queryValuesInRange(insertedKeys.get(3), insertedKeys.get(18));
 
         // 4. Delete keys
         //delete first 50 keys, and every on a certain node
