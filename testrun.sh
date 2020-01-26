@@ -1,5 +1,5 @@
 #!/bin/sh
-
+pkill java > /dev/null 2>&1
 rm -rf cloud-storage-node/target/node1
 rm -rf cloud-storage-node/target/node2
 rm -rf cloud-storage-node/target/node3
